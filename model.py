@@ -19,11 +19,11 @@ from typing import Optional
 class GPTConfig: 
     #Modlel dimensions 
     n_layers: int = 128 #nbr of trasformer blocks  
-    n_heads = 128  #nbr of attention heads
-    n_embd = 16384  
-    d_ffn = 65536 # x4 rule 
+    n_heads: int = 128  #nbr of attention heads
+    n_embd: int = 16384  
+    d_ffn: int = 65536 # x4 rule 
     context_len = 2048 #gpt-3's context window
-    vocab_size: 
+    vocab_size: int = 50257 # bpt-2 byte paire encoder vocabulary 
 
 
 
@@ -36,7 +36,13 @@ class GPT(nn.module):
 class MLP(nn.module): 
 
 
-class LayerNorm(): 
+class LayerNorm(nn.Module): 
+    """
+    """
+    def __init__(self,ndim,bias:bool+True, eps: float = 1e-5):
+        super().__init__()
+        self.weight = nn.Parameter(torch.ones(ndim))
+        self.bias = nn.Parameter(
 
 
 
