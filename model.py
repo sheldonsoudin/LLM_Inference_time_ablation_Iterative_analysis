@@ -25,6 +25,15 @@ class GPTConfig:
     context_len = 2048 #gpt-3's context window
     vocab_size: int = 50257 # bpt-2 byte paire encoder vocabulary 
 
+    # Regularisation 
+    dropout: float =0.1 
+
+    #Archetecture flags
+    bias: bool  = True # for bias i nLinear layers and layerNorm 
+    flash: bool =  True #  
+
+    sparse_block_size: int = 64 
+
 
 
 
@@ -34,15 +43,29 @@ class GPT(nn.module):
 
 
 class MLP(nn.module): 
+    """
+    Feed forward network
+    Hidden dimension set in config
+
+    """
+    def __ini__(self,config: GPTConfig):
+        
+
+
 
 
 class LayerNorm(nn.Module): 
     """
+    Using torch.nn.functional but still writting fct out transparently 
     """
     def __init__(self,ndim,bias:bool+True, eps: float = 1e-5):
         super().__init__()
         self.weight = nn.Parameter(torch.ones(ndim))
-        self.bias = nn.Parameter(
+        self.bias = nn.Parameter(torch.zeros(ndim)) if bias else None 
+        self.epst = eps 
+
+    def forward(self,x:torch.Tensor) -> torch.Tensor: 
+        return F.layer_norm(x,self.weight.shape,self.weight, self.bias,self.eps) 
 
 
 
