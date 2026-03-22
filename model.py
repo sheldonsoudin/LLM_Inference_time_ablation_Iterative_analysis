@@ -15,6 +15,8 @@ import torch.nn.functional as F
 from dataclasses import dataclass
 from typing import Optional 
 
+
+# model configuration
 @dataclass
 class GPTConfig: 
     #Modlel dimensions 
@@ -36,6 +38,14 @@ class GPTConfig:
 
 
 
+# ####################### model components ##########
+class GELU(nn.Module): 
+    """
+    same Gelu usde in gpt2/3 and nano gpt 
+    written as explicit module following Raschka convention 
+    """
+    def forward(self, x: torch.Tensor) -> torch.Tensor: 
+        return F.gelu(x)
 
 class GPT(nn.module): 
     def forward(): 
@@ -49,9 +59,14 @@ class MLP(nn.module):
 
     """
     def __ini__(self,config: GPTConfig):
-        
-
-
+        super().__init__()
+        self.fc = nn.Linear(config.n_embd, config.d_ffn, bias = config.bias) 
+        self.act = GELU()
+        self.proj = nn.Linear(config.d_ffn, config.n_embd,bias=config.bias) 
+        self.drop = nn.Dropout(config.dropout) 
+    
+    def forward(self, x: torch.Tensor) -> torch.Tensor:
+        return self.drop(self.proj(self.act(self.fc(x)))) 
 
 
 class LayerNorm(nn.Module): 
@@ -66,6 +81,43 @@ class LayerNorm(nn.Module):
 
     def forward(self,x:torch.Tensor) -> torch.Tensor: 
         return F.layer_norm(x,self.weight.shape,self.weight, self.bias,self.eps) 
+
+
+class CausalSelfAttention(nn.Module): 
+
+    """
+    Multi head causal self-attention based on 
+
+    nanoGPT : fused QKV projection, flash attention via F.scaled_dot_product_attention when use_flahs+True 
+
+    gpt3: alternating dense / sparse attention cotrolled by 'layer_idx' , even layers (sull desne causal attention), odd layers (locally banded sparse attention) 
+
+    """
+    def __init__(self,config: GPTConfig, layer_idx: int): 
+        super().__init__()
+        assert config.n_embd % config.n_head == 0, \ 
+        f"n_embd ({config.n_embd}) must be divisible by n_head ({config.n_head})" 
+
+        self.head = config.n_head 
+        self.head_dim = config.n_embd // config.n_head 
+        self.n_embd = config.n_embd 
+        self.dropout = config.dropout 
+        self.use_flash = config.use_flash 
+        self.sparse = ( layer_idx % 2 ==1) # odd layers are sparse 
+        self.sparse_block = config.sparse_block_size 
+
+        # fused QKV projection 
+        self.qkv = nn.Linear(config.n_embd, 3*config.n_embd, bias = config.bias) 
+        self.proj = nn.Linear(config.nn_embd, config.n_embd, bias = config.bias) 
+        self.attn_drop = nn.Dropout(config.dropout) 
+        self.resid_drop = nn.Dropout(config.dropout) 
+
+        # causal 
+
+
+
+
+
 
 
 
