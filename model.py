@@ -20,11 +20,11 @@ from typing import Optional
 @dataclass
 class GPTConfig: 
     #Modlel dimensions 
-    n_layers: int = 128 #nbr of trasformer blocks  
-    n_heads: int = 128  #nbr of attention heads
-    n_embd: int = 16384  
-    d_ffn: int = 65536 # x4 rule 
-    context_len = 2048 #gpt-3's context window
+    n_layers: int = 24 #nbr of trasformer blocks  
+    n_heads: int = 16  #nbr of attention heads
+    n_embd: int = 1024  
+    d_ffn: int = 4096 # x4 rule 
+    context_len = 1048 #gpt-3's context window
     vocab_size: int = 50257 # bpt-2 byte paire encoder vocabulary 
 
     # Regularisation 
