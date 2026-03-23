@@ -27,5 +27,7 @@ full retraining.
 See proposal for all information.
 
 model.py : in progress 
+
 data.py : todo 
+
 train.py : todo 
