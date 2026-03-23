@@ -25,3 +25,7 @@ specific use cases by identifying and exploiting structurally important paramete
 full retraining.
 
 See proposal for all information.
+
+model.py : in progress 
+data.py : todo 
+train.py : todo 
