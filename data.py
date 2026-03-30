@@ -17,7 +17,6 @@ Sources:
   Brown et al. (GPT-3), Radford et al. (GPT-2)
   next-token prediction with shifted targets
 
-Notes:
 - Uses GPT-2 tokenizer (vocab_size = 50257)
 """
 import math
