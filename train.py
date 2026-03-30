@@ -1,4 +1,5 @@
 # train.py
+# this file has helper fcts, the main training fct, checkpointing and uploading to huggingface fct 
 import os
 import math
 import json
