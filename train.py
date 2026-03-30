@@ -386,7 +386,7 @@ def main():
     )
     print(f"Saved final model to {final_dir}")
 
-    if args.push_to_hub:
+    if args.push_to_hub: #TODO double check good security practices for this .. 
         if not args.hf_repo_id:
             raise ValueError("--hf_repo_id is required when --push_to_hub is set")
 
