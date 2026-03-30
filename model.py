@@ -134,7 +134,7 @@ class GPT(nn.Module):
             { "params": [param_dict[n] for n in sorted(no_decay)], "weight_decay": 0.0}, 
         ]
 
-        use_fused = (device_type == "cuda") and ("fused" in torch.optim.AdamW.__init__.__doc__ or True)  #### Can crash? 
+        use_fused = (device_type == "cuda") 
         extra = {"fused": True} if use_fused else {}
         return torch.optim.AdamW(param_groups, lr=lr, betas=betas, **extra)
 
