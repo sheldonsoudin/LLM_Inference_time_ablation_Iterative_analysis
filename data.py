@@ -1,8 +1,25 @@
-# data.py 
-# this file loads the dataset and tokenizes the data so the the model can use it 
-#
-#
-#
+"""
+this file loads the dataset and tokenizes the data so the the model can use it, streaming and casual LM chunking
+
+Sources:
+- Hugging Face Datasets:
+  https://huggingface.co/docs/datasets/loading
+  https://huggingface.co/docs/datasets/stream
+
+- DCLM Baseline dataset (ML Foundations):
+  https://huggingface.co/datasets/mlfoundations/dclm-baseline-1.0
+
+- nanoGPT (Karpathy):
+  contiguous token buffer + chunking into (block_size + 1)
+  https://github.com/karpathy/nanoGPT
+
+- GPT-style causal language modeling:
+  Brown et al. (GPT-3), Radford et al. (GPT-2)
+  next-token prediction with shifted targets
+
+Notes:
+- Uses GPT-2 tokenizer (vocab_size = 50257)
+"""
 import math
 import torch
 from torch.utils.data import IterableDataset, DataLoader
