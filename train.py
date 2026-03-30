@@ -1,5 +1,31 @@
-# train.py
-# this file has helper fcts, the main training fct, checkpointing and uploading to huggingface fct 
+"""
+this file has helper fcts, the main training fct, checkpointing and uploading to huggingface fct 
+
+Sources:
+- nanoGPT (Karpathy):
+  training loop structure, gradient accumulation, cosine LR schedule
+  https://github.com/karpathy/nanoGPT/blob/master/train.py
+
+- PyTorch training:
+  optimizer step, backward pass, gradient clipping
+  https://pytorch.org/tutorials/beginner/introyt/trainingyt.html
+
+- PyTorch AMP (mixed precision):
+  torch.autocast, GradScaler
+  https://pytorch.org/docs/stable/amp.html
+
+- Hugging Face Transformers:
+  tokenizer loading (GPT-2 tokenizer)
+  https://huggingface.co/docs/transformers/main_classes/tokenizer
+
+- Hugging Face Hub:
+  model upload via upload_folder
+  https://huggingface.co/docs/huggingface_hub/guides/upload
+
+- Learning rate scheduling:
+  cosine decay with warmup (standard in LLM training)
+"""
+
 import os
 import math
 import json
