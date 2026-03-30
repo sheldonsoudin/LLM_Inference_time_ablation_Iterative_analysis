@@ -23,7 +23,7 @@ Sources:
   https://huggingface.co/docs/huggingface_hub/guides/upload
 
 - Learning rate scheduling:
-  cosine decay with warmup (standard in LLM training)
+  cosine decay with warmup 
 """
 
 import os
@@ -122,6 +122,7 @@ def get_amp_context(device: str, dtype_str: str):
     return nullcontext(), None
 
 
+
 def cosine_lr(step, max_steps, warmup_steps, max_lr, min_lr):
     if step < warmup_steps:
         return max_lr * (step + 1) / max(1, warmup_steps)
@@ -218,7 +219,7 @@ def main():
 
     tokenizer = AutoTokenizer.from_pretrained(args.tokenizer_name)
 
-    # match your model.py vocab assumption
+    # match model.py vocab assumption
     vocab_size = tokenizer.vocab_size
 
     config = GPTConfig(
