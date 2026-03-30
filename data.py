@@ -32,7 +32,7 @@ class DCLMTokenStream(IterableDataset):
     Streams mlfoundations/dclm-baseline-1.0 and yields causal LM examples:
       idx:     [block_size]
       targets: [block_size]
-    Stops after approximately target_tokens tokenizer tokens have been consumed.
+    Stops after approximately target_tokens 
     """
 
     def __init__(
@@ -80,6 +80,7 @@ class DCLMTokenStream(IterableDataset):
 
             ids = self.tokenizer.encode(text, add_special_tokens=False)
 
+          
             if self.add_eos_between_docs:
                 ids.append(self.tokenizer.eos_token_id)
 
