@@ -5,12 +5,6 @@
 
 In progress: due april 19th for comp432:machine learning
 
-model.py : in progress 
-
-data.py : todo 
-
-train.py : todo 
-
 Abstract
 
 
