@@ -134,7 +134,7 @@ class GPT(nn.Module):
             { "params": [param_dict[n] for n in sorted(no_decay)], "weight_decay": 0.0}, 
         ]
 
-        use_fused = (device_type == "cuda") and ("fused" in torch.optim.AdamW.__init__.__doc__ or True)
+        use_fused = (device_type == "cuda") and ("fused" in torch.optim.AdamW.__init__.__doc__ or True)  #### Can crash? 
         extra = {"fused": True} if use_fused else {}
         return torch.optim.AdamW(param_groups, lr=lr, betas=betas, **extra)
 
@@ -178,7 +178,7 @@ class GPT(nn.Module):
                 targets.view(-1),
                 ignore_index=-1, 
             )
-        return logits, loss
+        return {"logits": logits, "loss": loss}
 
     ## inference helper 
     @torch.no_grad() 
