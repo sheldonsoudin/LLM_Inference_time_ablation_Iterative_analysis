@@ -112,13 +112,18 @@ def build_train_dataloader(
     shuffle_buffer: int | None = 10_000,
     num_workers: int = 0,
     pin_memory: bool = True,
+    seed: int = 42,
 ):
+    if num_workers != 0:
+        raise ValueError("num_workers must be 0 for this streaming IterableDataset.")
+
     ds = DCLMTokenStream(
         tokenizer_name=tokenizer_name,
         split="train",
         block_size=block_size,
         target_tokens=target_tokens,
         shuffle_buffer=shuffle_buffer,
+        seed=seed,
     )
 
     return DataLoader(

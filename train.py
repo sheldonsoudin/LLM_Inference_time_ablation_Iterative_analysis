@@ -35,7 +35,7 @@ from contextlib import nullcontext
 
 import torch
 from transformers import AutoTokenizer
-from huggingface_hub import login, upload_folder
+from huggingface_hub import create_repo, login, upload_folder
 
 from model import GPT, GPTConfig
 from data import build_train_dataloader, estimate_num_steps
@@ -69,7 +69,7 @@ def parse_args():
     # training
     parser.add_argument("--batch_size", type=int, default=4)
     parser.add_argument("--grad_accum_steps", type=int, default=1)
-    parser.add_argument("--max_steps", type=int, default=None)
+    parser.add_argument("--max_steps", type=int, default=3000)
     parser.add_argument("--epochs", type=int, default=1)
     parser.add_argument("--lr", type=float, default=3e-4)
     parser.add_argument("--min_lr", type=float, default=3e-5)
@@ -85,9 +85,9 @@ def parse_args():
                         choices=["float32", "float16", "bfloat16"])
 
     # logging/checkpointing
-    parser.add_argument("--output_dir", type=str, default="outputs/run1")
+    parser.add_argument("--output_dir", type=str, default="/content/drive/MyDrive/gpt_run1")
     parser.add_argument("--log_interval", type=int, default=10)
-    parser.add_argument("--save_interval", type=int, default=1000)
+    parser.add_argument("--save_interval", type=int, default=200)
     parser.add_argument("--save_final_only", action="store_true")
 
     # resume
@@ -256,6 +256,7 @@ def main():
         shuffle_buffer=args.shuffle_buffer,
         num_workers=args.num_workers,
         pin_memory=(device == "cuda"),
+        seed=args.seed,
     )
 
     estimated_steps = estimate_num_steps(
@@ -275,6 +276,7 @@ def main():
         print(f"Resuming from: {args.resume_from}")
         start_step = maybe_resume(model, optimizer, scaler, args.resume_from, device)
         print(f"Resumed at step: {start_step}")
+        print("Note: resume restores model/optimizer/scaler state, but the streaming dataset restarts from the beginning.")
 
     model.train()
     running_loss = 0.0
@@ -394,6 +396,8 @@ def main():
             login(token=args.hf_token)
         else:
             login()
+
+        create_repo(args.hf_repo_id, private=args.hf_private, exist_ok=True)
 
         upload_folder(
             folder_path=final_dir,

@@ -178,7 +178,7 @@ class GPT(nn.Module):
                 targets.view(-1),
                 ignore_index=-1, 
             )
-        return {"logits": logits, "loss": loss}
+        return logits, loss
 
     ## inference helper 
     @torch.no_grad() 
@@ -355,3 +355,5 @@ class Block(nn.Module):
     def forward(self, x: torch.Tensor) -> torch.Tensor: 
         x = x+ self.attn(self.ln_1(x)) # attention residual 
         x = x+ self.mlp(self.ln_2(x)) # MLP residual
+        return x
+
