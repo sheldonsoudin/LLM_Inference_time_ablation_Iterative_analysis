@@ -24,6 +24,6 @@ broader intent of this project is to explore how general purpose models can be a
 specific use cases by identifying and exploiting structurally important parameters rather than
 full retraining.
 
-See proposal for all information.
+See proposal for all information. Full report will be uploaded by april 15th. 
 
 
