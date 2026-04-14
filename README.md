@@ -51,13 +51,16 @@ After each run, accuracy for each benchmark and also computes delta versus that 
 
 Full tabulated results are available on collab notebook. 
 
+![Alt text](figure1.png)
 
 
 This first figure (above)  is a bar chart showing the average HellaSwag accuracy after different model ablations. The bars on the left correspond to the Pythia model, while the bars on the right correspond to the scratch GPT model. Overall, the scratch GPT model consistently underperforms Pythia. A few other notable patterns stand out in this visualization: Pythia’s baseline accuracy is the highest, Pythia’s early-layer ablations produce the largest performance drops, especially from early_attn_out through early_mlp_up, and the scratch GPT model shows little change across most ablations.
 
-
+![Alt text](figure2.png)
 
 This second figure (above) is a bar chart showing the average MMLU accuracy after different model ablations. As in the previous figure, the bars on the left correspond to the Pythia model, while the bars on the right correspond to the scratch GPT model. Unlike the HellaSwag results, the MMLU accuracies are much more similar across the two models and across the ablation settings. Most bars cluster around roughly the same range, and the large overlapping error bars suggest that the differences between ablations are small and not very stable. Overall, this visualization indicates that neither model shows a strong or consistent sensitivity to any single ablation on MMLU, so the benchmark does not reveal a clear separation in internal component importance the way HellaSwag does. This may be due to the relatively small sample size used for MMLU. 
+![Alt text](figure3.png)
+![Alt text](figure4.png)
 
 The two figures above show the average change in accuracy relative to each model’s own baseline for both HellaSwag and MMLU across the different ablation settings. The first panel corresponds to HellaSwag, and the second panel corresponds to MMLU. In each panel, the blue bars represent Pythia-410M and the orange bars represent scratch GPT. Values below zero indicate that an ablation hurt performance, while values above zero indicate that an ablation slightly improved performance. The dashed horizontal line at zero marks no change from baseline.
 
