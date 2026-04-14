@@ -79,47 +79,71 @@ Further testing and larger samples would be needed to confirm these results. As 
 ## Sources
 
 ### Ablation
+
 Meyes et al. (2019), Ablation Studies in Artificial Neural Networks.  https://arxiv.org/abs/1901.08644 
+
 Michel, Paul, et al. “Are Sixteen Heads Really Better than One?” ArXiv.org, 4 Nov. 2019, http://arxiv.org/abs/1905.10650 
 
 ### Benchmarks
+
 Zellers et al. (2019), HellaSwag: Can a Machine Really Finish Your Sentence? https://arxiv.org/abs/1905.07830 
+
 Hendrycks et al. (2021), MMLU benchmark. https://arxiv.org/abs/2009.03300 
+
 CAIS MMLU dataset card (cais/mmlu). https://huggingface.co/datasets/cais/mmlu 
 
 ### Pretrained Model (Loaded)
+
 Biderman et al. (2023), “Pythia: A Suite for Analyzing Large Language Models Across Training and Scaling.” Available: https://proceedings.mlr.press/v202/biderman23a/biderman23a.pdf 
+
 EleutherAI Pythia-410M model card. https://huggingface.co/EleutherAI/pythia-410m 
 
 ### Model Architecture (Trained from Scratch)
+
 Karpathy, nanoGPT: fused QKV, weight tying, Flash Attention, bias flag.
+
 Raschka, LLMs-from-Scratch: custom LayerNorm, transparent GELU.
+
 Brown et al. (GPT-3): alternating dense/sparse attention, 2048 context, scale√k.
 
 ### Data Processing
+
 Hugging Face Datasets: loading and streaming. https://huggingface.co/docs/datasets/loading , https://huggingface.co/docs/datasets/stream 
+
 DCLM Baseline dataset (ML Foundations). https://huggingface.co/datasets/mlfoundations/dclm-baseline-1.0
+
 Karpathy, nanoGPT: contiguous token buffer, chunking into (block_size + 1). https://github.com/karpathy/nanoGPT 
+
 Brown et al. (GPT-3), Radford et al. (GPT-2): causal LM, next-token prediction with shifted targets. GPT-2 tokenizer (vocab_size = 50257).
 
 ### Training Loop 
+
 Karpathy, nanoGPT : training loop structure, gradient accumulation, cosine LR schedule. https://github.com/karpathy/nanoGPT/blob/master/train.py 
+
 PyTorch:  optimizer step, backward pass, gradient clipping. https://pytorch.org/tutorials/beginner/introyt/trainingyt.html 
+
 PyTorch AMP: torch.autocast, GradScaler. https://pytorch.org/docs/stable/amp.html 
+
 Hugging Face Transformers: GPT-2 tokenizer loading. https://huggingface.co/docs/transformers/main_classes/tokenizer 
 
 ### AI Resources
+
 These resources were used in review and debugging of code, as well as for searching for pertinent information and sources. 
 OpenAI’s ChatGPT 
 Anthropic’s Claude 
 
 ### Educational Resources
+
 These resources were used to help in designing and implementing this project:
 
 Supervision by PhD Candidate Maab Elrashid
+
 Laboratories from COMP432, Mirco Ravanelli, Concordia University, 2026.
+
 S. Kublik and Shubham Saboo, Gpt-3. O’Reilly Media, 2022.
+
 S. Raschka, Build a Large Language Model (From Scratch). Manning, 2024.
+
 J. Alammar and Maarten Grootendorst, Hands-On Large Language Models. “O’Reilly Media, Inc.,” 2024
 
 
