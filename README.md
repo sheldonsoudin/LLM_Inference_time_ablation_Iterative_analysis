@@ -31,7 +31,8 @@ The scratch model was trained using train.py. Training was run for 25,000 steps 
 
 ## Pythia 410 Million Parameters
 
-Pythia-410M is a transformer-based causal language model from EleutherAI’s Pythia suite, a family of models designed for interpretability research. According to the model card, Pythia-410M has about 405 million total parameters (302 million non-embedding parameters), uses a GPT-NeoX architecture with 24 layers, model width 1024, and 16 attention heads, Biderman et al. describe the broader Pythia project as a research-oriented setup for studying how language models develop across scale and training rather than as a chat-style product model. 
+Pythia-410M is a transformer-based causal language model from EleutherAI’s Pythia suite, a family of models designed for interpretability research. According to the model card, Pythia-410M has about 405 million total parameters (302 million non-embedding parameters), uses a GPT-NeoX architecture with 24 layers, model width 1024, and 16 attention heads, Biderman et al. describe the broader Pythia project as a research-oriented setup for studying how language models develop across scale and training rather than as a chat-style product model. The Pythia410 was trained on “The Pile” dataset, an 800GB dataset designed for language models, this is far more than what was streamed for the for scratch model.
+
 
 ## Ablation Protocol 
 
@@ -72,6 +73,8 @@ In the MMLU panel, both models stay much closer to zero overall, and the large e
 
 ## Analysis of results
 The conclusions of this experiment are as follows: On HellaSwag in particular, Pythia-410M performs better overall than the scratch GPT model, suggesting stronger pretrained representations. Pythia is also much more sensitive to early-layer ablations, especially in the early MLP components. This is likely related to its stronger pretrained structure: because it is the better-performing model, disrupting key components has a larger impact on overall performance. In addition, HellaSwag shows the clearest and most consistent ablation pattern, whereas the scratch GPT model changes very little across most ablations. This likely indicates that the scratch GPT has a less organized or less specialized internal structure than Pythia.
+
+Two further points of analysis were suggested by my supervisor PhD candidate Maab Elrashid, first, Pythia likely performed better because the dataset “The Pile” upon which it was trained was much larger, which may explain why this model learned good representations (M.Elrashid). Second, the benchmarks themselves may explain the usefulness of the results. HellaSwag evaluates the predictions of plausible text continuations, whereas MMLU “requires specialised knowledge and precise answers, which may lead to noisy and less consistent results” (M.Elrashid). 
 
 ## Challenges 
 Further testing and larger samples would be needed to confirm these results. As the project progressed, the scope of the experiment kept expanding, making it difficult to explore every direction. To obtain more meaningful conclusions, it would have been preferable to use a larger MMLU sample size and run more trials overall. The main reasons for not extending the experiments further were limitations in compute and time, especially given that this was primarily a learning project. Training the scratch model also required several attempts to get right, and, from a practical standpoint, time had to be balanced against other coursework, projects, and study commitments.
