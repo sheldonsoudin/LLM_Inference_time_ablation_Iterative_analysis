@@ -1,4 +1,4 @@
-# LLM Inference-time Ablation Iterative Analysis
+# LLM Inference-time Ablation Analysis
 
 ## Introduction
 
